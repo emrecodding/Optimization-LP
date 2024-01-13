@@ -1,17 +1,18 @@
 from pyomo.environ import *
 import pandas as pd
-import numpy as np
 
 product = ['X','X','X','Y','Y']
 plant = ['F1','F2','F3','F1','F2']
 hours = [3,2,2,2,1] # product time for 100 kg
 
+# Dataframe 
 df = pd.DataFrame(list(zip(product,plant,hours)),columns=['product','plant','hours'])
 
-monthly_hours = 31*24   # whole hours in a month
+# whole hours in a month
+monthly_hours = 31*24
 
-df['monthly_hours'] = monthly_hours*100/df['hours']   # calculating monthly capacity from hours / 100 kg
-
+# calculating monthly capacity from hours / 100 kg
+df['monthly_hours'] = monthly_hours*100/df['hours']  
 model = ConcreteModel()
 
 n_df =len(df)
@@ -28,6 +29,7 @@ F3 = df[df['plant'] == 'F3']
 
 model.cons = ConstraintList()
 
+# The capacity of products that can be produced in a plant have to be less or equal to the capacity of monthly hours.
 model.cons.add(expr= sum(Lp[i]* df['hours'][i]/100 for i in F1.index) <= 744 )
 model.cons.add(expr= sum(Lp[i]* df['hours'][i]/100 for i in F2.index) <= 744 )
 model.cons.add(expr= sum(Lp[i]* df['hours'][i]/100 for i in F3.index) <= 744 )
