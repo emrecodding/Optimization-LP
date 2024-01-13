@@ -1,7 +1,7 @@
 # Optimization with Pyomo
 ### Here is a Linear Problem for assignment with pyomo, gurobi.
 
-### In this part, I chose some sample datas for application.
+### In this part, I chose some datas for application.
 
 ### There are some goods and plants which can produce them. The hours column means the necessary hours to produce 100 kg.
 
