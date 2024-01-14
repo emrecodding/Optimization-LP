@@ -48,4 +48,8 @@ solver = opt.solve(model)
 
 model.pprint()
 
+# The output of model is the unit of kg.
+df['amount_of_production'] = [value(Lp[i]) for i in df.index]
 
+# The needed hours is converted from amount_of_production. For example if I produce 100 kg in 2 hours, I will produce 1700 kg in 34 hours.
+df['needed_hours'] = df['amount_of_production']*df['hours']/100
